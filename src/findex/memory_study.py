@@ -37,8 +37,6 @@ def build_variant(root: Path, variant: str, limit: int | None) -> dict:
     previous_id = -1
 
     for document in documents:
-        # Our corpus loader assigns increasing IDs.
-        # Appending in this order keeps all postings sorted.
         if document.doc_id <= previous_id:
             raise ValueError("Document IDs must be strictly increasing")
 
@@ -88,14 +86,11 @@ def measure(root: Path, variant: str, limit: int | None, output: Path) -> dict:
     vocabulary = len(index["postings"])
     token_count = sum(index["doc_lengths"].values())
 
-    # Trusted local benchmark files only:
-    # loading an untrusted pickle can execute arbitrary code.
     with output.open("wb") as file:
         pickle.dump(index, file, protocol=pickle.HIGHEST_PROTOCOL)
 
     file_size = output.stat().st_size
 
-    # Release the built index before measuring loading.
     del index
     gc.collect()
 

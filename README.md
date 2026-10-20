@@ -174,5 +174,11 @@ uv run pytest
 uv run ruff check .
 uv run ruff format --check .
 ```
+## Fix
+
+```powershell
+uv run ruff check .
+uv run ruff format --check .
+```
 
 Tokenizer tests are included. The build, search, and benchmark results above are recorded manual runs; successful lint/format checks are not claimed here.

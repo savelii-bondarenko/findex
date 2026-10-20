@@ -13,3 +13,7 @@ wheels/
 .idea/
 
 data/
+
+benchmarks/
+index.bin
+index.json

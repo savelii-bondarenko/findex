@@ -44,9 +44,7 @@ def build_index(documents: Iterable[Document]) -> Index:
         )
 
         for term, frequency in term_counts.items():
-            postings[term].append(
-                Posting(doc_id=document.doc_id, tf=frequency)
-            )
+            postings[term].append(Posting(doc_id=document.doc_id, tf=frequency))
 
     for term_postings in postings.values():
         term_postings.sort(key=lambda posting: posting.doc_id)
@@ -56,6 +54,7 @@ def build_index(documents: Iterable[Document]) -> Index:
         doc_lengths=doc_lengths,
         doc_meta=doc_meta,
     )
+
 
 def main() -> None:
     import argparse

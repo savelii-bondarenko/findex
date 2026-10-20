@@ -4,6 +4,7 @@ from collections.abc import Iterator
 
 WORD_PATTERN = re.compile(r"\w+")
 
+
 def tokenize(text: str) -> Iterator[str]:
     normalized = unicodedata.normalize("NFC", text)
 

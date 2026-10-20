@@ -8,6 +8,7 @@ class Document(NamedTuple):
     path: Path
     text: str
 
+
 def iter_documents(root: Path) -> Iterator[Document]:
     doc_id = 0
     for file_path in root.rglob("*.txt"):

@@ -13,8 +13,7 @@ def save(index: Index, path: Path) -> None:
                 for term, postings in index.postings.items()
             },
             "doc_lengths": {
-                str(doc_id): length
-                for doc_id, length in index.doc_lengths.items()
+                str(doc_id): length for doc_id, length in index.doc_lengths.items()
             },
             "doc_meta": {
                 str(doc_id): {
@@ -39,15 +38,11 @@ def load(path: Path) -> Index:
 
         return Index(
             postings={
-                term: [
-                    Posting(doc_id=doc_id, tf=tf)
-                    for doc_id, tf in postings
-                ]
+                term: [Posting(doc_id=doc_id, tf=tf) for doc_id, tf in postings]
                 for term, postings in data["postings"].items()
             },
             doc_lengths={
-                int(doc_id): length
-                for doc_id, length in data["doc_lengths"].items()
+                int(doc_id): length for doc_id, length in data["doc_lengths"].items()
             },
             doc_meta={
                 int(doc_id): DocMeta(
@@ -62,6 +57,6 @@ def load(path: Path) -> Index:
         index = pickle.load(file)
 
     if not isinstance(index, Index):
-        raise ValueError("The file does not contain a findex Index")
+        raise TypeError("The file does not contain a findex Index")
 
     return index

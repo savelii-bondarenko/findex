@@ -10,11 +10,17 @@ from findex.tokenize import tokenize
 
 RESULT_TOP_NUMBERS = 50
 
+
 def main():
     parser = argparse.ArgumentParser(description="Corpus statistics pipeline")
     parser.add_argument("data_dir", type=Path, help="Path to the corpus directory")
 
-    parser.add_argument("--limit", type=int, default=None, help="Limit the number of documents processed")
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Limit the number of documents processed",
+    )
     args = parser.parse_args()
 
     tracemalloc.start()
@@ -52,6 +58,7 @@ def main():
     print(f"\nElapsed time: {elapsed_time:.2f} seconds")
 
     print(f"Peak memory: {peak_mem / 1024 / 1024:.2f} MB")
+
 
 if __name__ == "__main__":
     main()

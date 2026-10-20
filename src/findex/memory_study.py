@@ -51,13 +51,9 @@ def build_variant(root: Path, variant: str, limit: int | None) -> dict:
 
         for term, frequency in term_counts.items():
             if variant == "plain":
-                postings[term].append(
-                    PlainPosting(document.doc_id, frequency)
-                )
+                postings[term].append(PlainPosting(document.doc_id, frequency))
             elif variant == "slots":
-                postings[term].append(
-                    Posting(document.doc_id, frequency)
-                )
+                postings[term].append(Posting(document.doc_id, frequency))
             else:
                 doc_ids, frequencies = postings[term]
                 doc_ids.append(document.doc_id)
@@ -162,16 +158,16 @@ def main() -> None:
         )
 
     signatures = {
-        (row["documents"], row["vocabulary"], row["tokens"])
-        for row in results
+        (row["documents"], row["vocabulary"], row["tokens"]) for row in results
     }
 
     if len(signatures) != 1:
         raise RuntimeError("Corpus statistics differ between variants")
 
     print()
-    print("| Representation | Peak build memory, MiB "
-          "| Index size, bytes | Load time, s |")
+    print(
+        "| Representation | Peak build memory, MiB | Index size, bytes | Load time, s |"
+    )
     print("|---|---:|---:|---:|")
 
     labels = {

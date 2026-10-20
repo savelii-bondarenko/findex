@@ -12,7 +12,9 @@ from findex.tokenize import tokenize
 def main():
     parser = argparse.ArgumentParser(description="Eager (greedy) corpus statistics")
     parser.add_argument("data_dir", type=Path, help="Path to the corpus directory")
-    parser.add_argument("--limit", type=int, default=None, help="Limit the number of documents")
+    parser.add_argument(
+        "--limit", type=int, default=None, help="Limit the number of documents"
+    )
     args = parser.parse_args()
 
     tracemalloc.start()
@@ -38,6 +40,7 @@ def main():
     print(f"Documents processed: {len(docs_list)}")
     print(f"Elapsed time: {elapsed_time:.2f} seconds")
     print(f"Peak memory: {peak_mem / 1024 / 1024:.2f} MB")
+
 
 if __name__ == "__main__":
     main()

@@ -2,12 +2,11 @@ import argparse
 import time
 import tracemalloc
 from collections.abc import Callable
+from pathlib import Path
 
 from findex.index import Index
 from findex.store import load
 from findex.tokenize import tokenize
-
-from pathlib import Path
 
 
 def merge_and(left: list[int], right: list[int]) -> list[int]:
@@ -142,10 +141,7 @@ def search(
         term = parts[position]
         position += 1
 
-        doc_ids = [
-            posting.doc_id
-            for posting in index.postings.get(term, [])
-        ]
+        doc_ids = [posting.doc_id for posting in index.postings.get(term, [])]
 
         if negate:
             if universe is None:
@@ -205,14 +201,9 @@ def benchmark(index: Index, repeats: int) -> None:
                 for _ in range(repeats):
                     search(index, query, engine)
 
-                average_us = (
-                    (time.perf_counter() - start) / repeats * 1_000_000
-                )
+                average_us = (time.perf_counter() - start) / repeats * 1_000_000
 
-                print(
-                    f"| {label} | {query} | {engine} "
-                    f"| {average_us:.2f} |"
-                )
+                print(f"| {label} | {query} | {engine} | {average_us:.2f} |")
 
 
 def main() -> None:
@@ -243,9 +234,7 @@ def main() -> None:
     try:
         query_start = time.perf_counter()
         results = (
-            search(index, args.query, args.engine)
-            if args.query is not None
-            else []
+            search(index, args.query, args.engine) if args.query is not None else []
         )
         query_time = time.perf_counter() - query_start
     except ValueError as error:
